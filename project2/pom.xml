@@ -2,17 +2,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<!-- 패키지명, 프로젝트명 -->
 	<groupId>edu.kh</groupId>
 	<artifactId>project</artifactId>
 	<name>project2</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
+	
+	<!-- properties : 메이븐이 적용된 프로젝트에서 공통적으로 사용할 값을 작성하는 태그(전역 변수) -->
 	<properties>
-		<java-version>1.6</java-version>
-		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
-		<org.aspectj-version>1.6.10</org.aspectj-version>
-		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<java-version>11</java-version>
+		<org.springframework-version>5.3.14</org.springframework-version>
+		<org.aspectj-version>1.9.9.1</org.aspectj-version>
+		<org.slf4j-version>1.7.25</org.slf4j-version>
 	</properties>
+	
+	
 	<dependencies>
 		<!-- Spring -->
 		<dependency>
@@ -117,6 +122,8 @@
 			<scope>test</scope>
 		</dependency>        
 	</dependencies>
+	
+	<!-- build : 프로젝트 빌드 시 사용되는 플러그인, 버전 정보 설정 -->
     <build>
         <plugins>
             <plugin>
@@ -136,10 +143,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>3.8.1</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                <!-- jdk버전  -->
+                    <source>11</source>
+                    <target>11</target>
                     <compilerArgument>-Xlint:all</compilerArgument>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
@@ -153,6 +161,13 @@
                     <mainClass>org.test.int1.Main</mainClass>
                 </configuration>
             </plugin>
-        </plugins>
+       
+         <!-- Could not initialize class org.apache.maven.plugin.war.util.WebappStructureSerializer -->
+         <!-- 메이븐 구성 문제로 인한 pom.xml 오류 발생 시 해결 -->
+         <plugin>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.2.2</version>
+         </plugin>
+         </plugins>
     </build>
 </project>
