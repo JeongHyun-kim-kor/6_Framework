@@ -137,10 +137,17 @@ public class MemberController {
 		
 		// Servlet 프로젝트
 		// service 객체 생성 -> try{ } catch
-		// try ~ catch 내부에 코드 자것ㅇ
+		// try ~ catch 내부에 코드 작성
 		
 		// Spring 프로젝트
-		// 
+		//	메서드별로 주소를 할당할수잇다. > 서비스를 멤버변수로 선언해서사용하기 
+		
+		// 서비스 호출 후 결과 반환 받기
+		Member loginMember = service.login(inputMember);
+		
+		// 로그인 성공시 loginMember를 세션에추가
+		// 로그인 실패시 "아이디 또는 비밀번호가 일치하지 않습니다." 세션에 추가
+		
 		
 		return "redirect:/";
 	}
