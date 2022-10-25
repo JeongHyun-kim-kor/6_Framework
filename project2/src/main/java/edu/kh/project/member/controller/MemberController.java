@@ -3,6 +3,7 @@ package edu.kh.project.member.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -77,10 +78,10 @@ public class MemberController {
 		System.out.println(inputPw);
 		return"redirect:/";
 	}
-	
+	//@RequestMapping방법 2
 	//@ RequestParam 생략을 이용해서 짧게코드 작성 가능
 	
-	@RequestMapping(value = "/member/login" , method = RequestMethod.POST)
+//	@RequestMapping(value = "/member/login" , method = RequestMethod.POST)
 	public String login(String email, String inputPw) {
 		
 		System.out.println(email);
@@ -88,6 +89,37 @@ public class MemberController {
 		return"redirect:/";
 	}
 
+	//1025 1교시
+	
+//  ==@RequestMapping(value="/member/login", method = RequestMethod.POST)
+	//	@PostMapping("/member/login") // POST 방식의 요청 /member/login 요청을 연결하겠다.
+	//	@GetMapping("/member/login") // GET 방식의 요청 /member/login 요청을 연결하겠다.
+	
+	//위에 어노테이션 주석쳐줘야함
+	
+	// 3. @ModelAttribute 어노테이션 이용
+	
+	// 작성법
+	// @ModelAttribute VO타입 매개변수명
+	//  -> 파라미터의 name 속성 값이 지정된 VO필드명과 같다면 
+	//     해당 VO객체의 필드에 파라미터를 세팅
+	
+	// [조건]
+	// 1. name속성 값과 필드 명이 같아야 한다.
+	// 2. VO에 반드시 기본 생성자가 존재해야 함.
+	// 3. VO에 반드시 setter가 존재해야함
+	
+	
+	@PostMapping("/member/login") 
+	public String login() {
+		
+		return null;
+	}
 
+	
+	
+	
+	
+	
 	
 }
