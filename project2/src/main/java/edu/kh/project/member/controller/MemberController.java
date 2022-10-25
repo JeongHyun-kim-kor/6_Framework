@@ -3,10 +3,13 @@ package edu.kh.project.member.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import edu.kh.project.member.model.vo.Member;
 
 // 회원 관련 요청을 받는 컨트롤러
 // Controller : 프레젠테이션 레이어,
@@ -111,9 +114,9 @@ public class MemberController {
 	
 	
 	@PostMapping("/member/login") 
-	public String login() {
+	public String login(@ModelAttribute Member inputMember){
 		
-		return null;
+		return "redirect:/";
 	}
 
 	
