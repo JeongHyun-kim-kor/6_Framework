@@ -2,13 +2,13 @@ package edu.kh.project.member.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.kh.project.member.model.service.MemberService;
+import edu.kh.project.member.model.service.MemberServiceImpl;
 import edu.kh.project.member.model.vo.Member;
 
 // 회원 관련 요청을 받는 컨트롤러
@@ -23,6 +23,20 @@ import edu.kh.project.member.model.vo.Member;
 //						  + bean 등록(Spring이 객체로 만들어서 관리)
 @Controller
 public class MemberController {
+	
+	//10 25 2교시
+	// * 공용으로 사용할 Service 객체 생성 *
+	
+	//@Autowired
+	// bean scanning을 통해 bean으로 등록된 개체중
+	// 알맞은 객체를 DI(의존성 주입)을 해주는 어노테이션
+	// 
+	// 자동 연결 규칙 : 타입이 같거나 상속관계인 bean을 자동으로 DI
+	
+	@Autowired
+	private MemberService service = new MemberServiceImpl();
+	// >> 
+	
 
 //	@RequestMapping : == Handler Mapping
 //						 클라이언트의 요청을 처리할 클래스/메서드를 지정하는 어노테이션
@@ -109,12 +123,24 @@ public class MemberController {
 	
 	// [조건]
 	// 1. name속성 값과 필드 명이 같아야 한다.
-	// 2. VO에 반드시 기본 생성자가 존재해야 함.
+	// 2. VO에 반드시 기본 생성자가 존재해야 함.  > main jsp 의 name 변경(email, pw)
 	// 3. VO에 반드시 setter가 존재해야함
 	
+	// 1025 2교시
+	// * @ModelAttribute 어노테이션 생략도 가능
+	// == 커맨드객체
 	
 	@PostMapping("/member/login") 
-	public String login(@ModelAttribute Member inputMember){
+	public String login(/* @ModelAttribute */ Member inputMember){
+		
+//		System.out.println(inputMember);
+		
+		// Servlet 프로젝트
+		// service 객체 생성 -> try{ } catch
+		// try ~ catch 내부에 코드 자것ㅇ
+		
+		// Spring 프로젝트
+		// 
 		
 		return "redirect:/";
 	}
