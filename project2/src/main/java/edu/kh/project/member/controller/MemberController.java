@@ -1,11 +1,17 @@
 package edu.kh.project.member.controller;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.project.member.model.service.MemberService;
 import edu.kh.project.member.model.service.MemberServiceImpl;
@@ -22,6 +28,8 @@ import edu.kh.project.member.model.vo.Member;
 //Controller 어노테이션 : 컴파일러에게 현재 클래스가 Controller임을 알려줌
 //						  + bean 등록(Spring이 객체로 만들어서 관리)
 @Controller
+@SessionAttributes("loginMember") /* {" " , " "} 여러개도 가능 */
+//-> Model에 추가된 속성 중 Key가 일치하는 속성을 session scope속성으로 추가
 public class MemberController {
 	
 	//10 25 2교시
@@ -130,8 +138,33 @@ public class MemberController {
 	// * @ModelAttribute 어노테이션 생략도 가능
 	// == 커맨드객체
 	
+	// 1026 1교시 시작
+	// * 참고 *
+	//Controller 메서드 매개변수에 객체를 작성하면
+	// 자동으로 생성되거나 얻어올 수 있는 이유
+	// --> Spring Container(SPring관련된 모든 것이 담겨있는 박스)에서
+	//     Argument Resolver 제공(매개변수 해결사)해서 유연하게 해결함
+	
+	
 	@PostMapping("/member/login") 
-	public String login(/* @ModelAttribute */ Member inputMember){
+	public String login(/* @ModelAttribute */ Member inputMember
+			,Model model,
+			RedirectAttributes ra,
+			@RequestParam(value="saveId", required = false) String saveId, // 체크박스 값 얻어옥;
+			HttpServletResponse resp){  // 쿠키 전달용 
+	        // saveId라는 값을~ 
+		
+		// Model : 데이터 전달용 객체
+		// - 데이터를 Map 형식으로 저장하여 전달하는 객체로서
+		// - request scope가 기본 값
+		// + @SessionAttribute 어노테이션과 함께 작성시
+		//   session scope로 변환 가능
+		
+		// RedirectAttributes
+		// - 리다이렉트시 값을 전달하는 용도의 객체
+		// - 응답 전 : request scope
+		// - redirect 중 : session scope
+		// - 응답 후 : request scope
 		
 //		System.out.println(inputMember);
 		
@@ -145,11 +178,65 @@ public class MemberController {
 		// 서비스 호출 후 결과 반환 받기
 		Member loginMember = service.login(inputMember);
 		
+		if(loginMember != null) {
 		// 로그인 성공시 loginMember를 세션에추가
-		// 로그인 실패시 "아이디 또는 비밀번호가 일치하지 않습니다." 세션에 추가
+		
+			// HttpSession session = req.getSession(); (예전에 했던 방식)
+			// addAttribute("K", V) == req.setAttribute("K", V)
+			model.addAttribute("loginMember", loginMember);
+			// -> request scope 상태
+			
+			// @SessionAttributes("loginMember")클래스 위에 추가
+			// -> session scope로 변환 (session 속성으로 추가해라)
+			
+			//**********************************************************************
+			// 쿠키 생성
+			   Cookie cookie = new Cookie("saveId", loginMember.getMemberEmail());
+			   
+			   // 쿠키 유지 시간 지정
+			   if(saveId != null) { // 체크 되었을 때
+			       
+			       //1년동안 쿠키 유지
+			       cookie.setMaxAge(60*60*24*365);
+			   } else { // 체크 안되었을 때 
+			       
+			       // 0초 동안 쿠키 유지 -> 생성과 동시에 삭제
+			       // --> 클라이언트쪽의 쿠키 파일을 삭제
+			       cookie.setMaxAge(0);
+			   }
+			   
+			   // 쿠키가 사용되는 경로 지정
+			   cookie.setPath("/");  // localhost 밑에 모든 경로에서 사용 가능
+			   
+			   // 생성된 쿠키를 응답 객체에 담아서 클라이언트에게 전달
+			   resp.addCookie(cookie);
+			   
+			 //**********************************************************************
+			
+			
+		}else{
+			// 로그인 실패시 "아이디 또는 비밀번호가 일치하지 않습니다." 세션에 추가
+			// 1026 2교시
+//			model.addAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
+			// -> 메인페이지 주소에 message 값이 노출된다
+			// -> RedirectAttributes로 변환할 것이다.
+			
+			// 
+			ra.addFlashAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
+			// addFlashAttribute() : 잠깐 session scope에 추가
+			
+		}
+		
 		
 		
 		return "redirect:/";
+	}
+	// 1026 3교시
+	// 로그인 페이지 이동
+	@GetMapping("/member/login")
+	public String loginPage() {
+	    return "member/login";
+	    
 	}
 
 	

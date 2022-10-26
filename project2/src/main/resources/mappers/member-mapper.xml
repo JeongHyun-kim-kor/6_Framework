@@ -23,7 +23,7 @@
   -->
 <!--	<resultMap type="edu.kh.project.member.model.vo.Member" id="member_rm"> -->
   		<resultMap type="Member" id="member_rm">
-  				
+  					<!-- edu.kh~를 Member로 별칭지정한 것  -->
   				
   		<!--  DB에서 PK에 해당하는 필드 ,컬럼을 작성하는 태그-->
   				<!-- (필드명)    (컬럼명)     -->
@@ -79,7 +79,6 @@
 	WHERE MEMBER_DEL_FL = 'N'
 	AND MEMBER_EMAIL = #{memberEmail}
 									<!--  ? 자리 -->
-  
   </select>
   
   
