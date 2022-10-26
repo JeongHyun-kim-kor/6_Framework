@@ -3,14 +3,17 @@ package edu.kh.project.member.controller;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.project.member.model.service.MemberService;
@@ -151,7 +154,9 @@ public class MemberController {
 			,Model model,
 			RedirectAttributes ra,
 			@RequestParam(value="saveId", required = false) String saveId, // 체크박스 값 얻어옥;
-			HttpServletResponse resp){  // 쿠키 전달용 
+			HttpServletResponse resp,  // 쿠키 전달용
+	        @RequestHeader(value="referer") String referer // 요청 이전 주소
+	        ){
 	        // saveId라는 값을~ 
 		
 		// Model : 데이터 전달용 객체
@@ -178,9 +183,11 @@ public class MemberController {
 		// 서비스 호출 후 결과 반환 받기
 		Member loginMember = service.login(inputMember);
 		
+		String path = null; // redirect 경로를 지정할 변수
+		
 		if(loginMember != null) {
 		// 로그인 성공시 loginMember를 세션에추가
-		
+		    path ="/"; //메인페이지
 			// HttpSession session = req.getSession(); (예전에 했던 방식)
 			// addAttribute("K", V) == req.setAttribute("K", V)
 			model.addAttribute("loginMember", loginMember);
@@ -215,6 +222,13 @@ public class MemberController {
 			
 			
 		}else{
+		    // 기존 : HttpServletRequest req;
+//		             path =   req.getHeader("referer");
+		    
+		    // req객체 가져오는 새로운 방법 : @RequestHeader(value="referer") String referer
+	       //                     path - referer;
+		    
+		    path = referer;  // 로그인 요청 전의 페이지 주소(referer)
 			// 로그인 실패시 "아이디 또는 비밀번호가 일치하지 않습니다." 세션에 추가
 			// 1026 2교시
 //			model.addAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
@@ -229,7 +243,7 @@ public class MemberController {
 		
 		
 		
-		return "redirect:/";
+		return "redirect:" + path;
 	}
 	// 1026 3교시
 	// 로그인 페이지 이동
@@ -240,6 +254,62 @@ public class MemberController {
 	}
 
 	
+	// 로그아웃
+	@GetMapping("/member/logout")
+    public String logout(/* HttpSession session 안됨 */SessionStatus status) {
+	    
+	    // 기존 : 
+	    //  HttpServletRequest req;
+	    //  HttpSession session = req.getSession();
+	    // session.invalidate();
+	    
+//	    session.invalidate(); // 세션 무효화
+//	     >> 안됨
+	    
+//	    ㅇ왜? @SessionAttribute로 session scope에 등록된 값을 무효화 시키려면
+	    // SessionStatus라는 별도의 객체를 이용해야 한다.
+	    
+	    status.setComplete();
+	    
+	    
+	    return "redirect:/";
+	}
+	
+	@GetMapping("/member/signUp")
+	public String signUpPage() {
+	    return "/member/signUp";
+	}
+	
+	// 회원 가입 (커맨드 객체 사용)
+	@PostMapping("/member/signUp")
+    public String signUp(Member inputMember /* 커맨드 객체 */,
+            String[] memberAddress /* name속성값이 memberAddress인 값을 배열로 반환 */) {
+//	    글자가 깨졌다 + 배열을 어떤 타입으로 받아왔나?(주소)
+	    // -> POST요청 시 인코딩 처리 필요 -> 인코딩 필터 처리(web.xml)
+	    
+	    // 주소는 ,로 자동구분되어지고 안쓸경우 빈칸으로 된다  빈칸 > null바꾸는 작업해야한다. , 도 ,,로 해야 주소가 DB에서 제대로 구분됨
+	    
+	    // Spring은
+	    // 1) 같은 name속성을 가진 input 태그의 값을
+	    // 값,값,갑,밗 ... 자동으로 하나의 문자열을 만들어줌
+	    
+	    //2) input type="text"의 값이 작성되지 않은 경우
+	    //   null이 아닌 빈칸("")으로 값을 얻어온다.
+	    
+	    // 주소가 작성되지 않은 경우(,,로나옴) ==> null  
+	    if(inputMember.getMemberAddress().equals(",,")) {
+	        
+	        inputMember.setMemberAddress(null);
+	    }
+	    
+	    // 주소가 작성된 경우 ==> 주소,, 주소,, 주소
+	    else {
+	        
+	        inputMember.setMemberAddress(String.join(",,", memberAddress) ) ;
+	    }
+	    
+	    return null;
+	}
 	
 	
 	
