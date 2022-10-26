@@ -82,6 +82,29 @@
   </select>
   
   
+  <!-- insert / update / delete 는
+  		항상 반영된 행의 개수(int type)이 반환되기 때문에
+  		별도의 resultType 지정이 필요없다!
+  		
+  		SELECT는 INT STRING 등 다양ㅇ하기때문에 사용할때 고려를 해야한다.
+   -->
+  
+  
+  
+  <!-- 회원 가입 -->
+  
+<!-- 원래 >>  <insert id="signUp" parameterType="edu.kh.proect.member.model.vo.Member">
+ -->  										<!-- 별칭 : Member(mybatis-config.xml) -->
+  
+ <insert id="signUp" parameterType="edu.kh.project.member.model.vo.Member">
+  	INSERT INTO "MEMBER" 
+  	VALUES(SEQ_MEMBER_NO.NEXTVAL,
+  			#{memberEmail} ,#{memberPw}, #{memberNickname}, #{memberTel},#{memberAddress},
+  			DEFAULT,DEFAULT, DEFAULT, DEFAULT)
+  			<!-- Member.getMemberEmail() >> Member. = (x) get = (x), () = (x) / Mybatis는 get만 가능?   -->
+  </insert>
+  
+  
   
   
 </mapper>
