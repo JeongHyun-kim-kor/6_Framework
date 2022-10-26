@@ -32,7 +32,8 @@ public class MemberDAO {
             
 //        return sqlSession.insert("매퍼이름.태그id", inputMember);
         return sqlSession.insert("memberMapper.signUp", inputMember);
-                                              // 임의로 지어주고 member-mapper.xml로 가서 작성
+                                               // signUo >> 임의로 지어주고 member-mapper.xml로 가서 작성
+//        return 0;
     }
 	
 	
