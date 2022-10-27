@@ -7,7 +7,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		
-		<!--  서버가 start되지마자 적용할 설정 파일을 작성 -->
+		<!-- 서버가 start되지마자 적용할 설정 파일을 작성 -->
 		<!-- spring 폴더 이동 후 경로 변경 -->
 		<param-value>
 		classpath:spring/root-context.xml
@@ -22,7 +22,8 @@
 
 	<!-- Processes application requests -->
 	<!-- 
-	서버를 start하자마자 DispatcherServlet을 생성하는데  spring.appServlet .servlet-context.xml
+	서버를 start하자마자 DispatcherServlet을 생성하는데 -> init-param 초기화 값들
+	spring.appServlet .servlet-context.xml
 	 -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>

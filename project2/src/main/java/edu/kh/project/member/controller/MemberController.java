@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -57,7 +58,7 @@ public class MemberController {
 	// 
 	
 	// 로그인 요청(POST방식)
-	//@RequestMapping(value = "/member/login" , method = RequestMethod.POST)
+//	@RequestMapping(value = "/member/login" , method = RequestMethod.POST)
 	public String login(HttpServletRequest req) {
 		
 		String inputEmail = req.getParameter("inputEmail");
@@ -110,9 +111,9 @@ public class MemberController {
 	//@ RequestParam 생략을 이용해서 짧게코드 작성 가능
 	
 //	@RequestMapping(value = "/member/login" , method = RequestMethod.POST)
-	public String login(String email, String inputPw) {
+	public String login(String inputEmail, String inputPw) {
 		
-		System.out.println(email);
+		System.out.println(inputEmail);
 		System.out.println(inputPw);
 		return"redirect:/";
 	}

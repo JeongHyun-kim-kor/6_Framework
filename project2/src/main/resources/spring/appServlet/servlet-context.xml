@@ -32,12 +32,13 @@
 	<!-- **** /webapp/resources 폴더 경로를 웹에서 요청했을 때 접근 가능하게 하는 태그 -->
 	<resources mapping="/resources/**" location="/resources/" />
 	
-	<!-- View Resolver 객체(bean)생성 구문 -->
 	
 	<!-- 
 			Controller에서 반환된 값 앞 뒤에 prefix/ suffix를 붙여 완성된 경로의 jsp로 forward
 	 -->
-	
+	<!-- View Resolver 객체(bean)생성 구문 -->
+	<!-- Controller에서 반환된 값 앞/뒤에
+    prefix/ suffix를 붙여 완성된 경로의 jsp로 forward -->
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" /> <!-- /WEB-INF/views/home -->
