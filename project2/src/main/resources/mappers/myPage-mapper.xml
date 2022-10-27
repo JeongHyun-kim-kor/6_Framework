@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="myPageMapper">
+  <resultMap type="Member" id="member_rm">
+  					<!-- edu.kh~를 Member로 별칭지정한 것  -->
+  				
+  		<!--  DB에서 PK에 해당하는 필드 ,컬럼을 작성하는 태그-->
+  				<!-- (필드명)    (컬럼명)     -->
+  		<id  property="memberNo" column="MEMBER_NO"/>
+  		
+  		<!-- 나머지 일반 컬럼 -->
+      <result property="memberEmail" column="MEMBER_EMAIL" />
+      <result property="memberPw" column="MEMBER_PW" />
+      <result property="memberNickname" column="MEMBER_NICKNAME" />
+      <result property="memberTel" column="MEMBER_TEL" />
+      <result property="memberAddress" column="MEMBER_ADDRESS" />
+      <result property="profileImage" column="PROFILE_IMG" />
+      <result property="enrollDate" column="ENROLL_DATE" />
+      <result property="memberDeleteFlag" column="MEMBER_DEL_FL" />
+      <result property="authority" column="AUTHORITY" />
+  		
+  		</resultMap>
+  
+  	<!-- 회원 정보 수정 -->
+  	<update id="updateInfo" parameterType="Member">
+  							<!-- MyBatis config에 별칭 설정해놔서 Member만 적어도 됨 -->
+  		<!-- 원래 방식 -->
+  		<!-- UPDATE "MEMBER" SET
+  		MEMBER_NICKNAME = ?,
+  		MEMBER_TEM = ?,
+  		MEMBER_ADDRESS =?
+  		WHERE MEMBER_NO = ?  -->  
+  		
+  	    UPDATE "MEMBER" SET
+  		MEMBER_NICKNAME = #{memberNickname},
+  		MEMBER_TEL = #{memberTel},
+  		MEMBER_ADDRESS = #{memberAddress}
+  		WHERE MEMBER_NO = #{memberNo}
+  	</update>
+  
+  
+  
+  
+  
+  
+  
+</mapper>

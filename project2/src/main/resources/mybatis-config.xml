@@ -26,6 +26,8 @@
 				<mappers>
 				<mapper resource="/mappers/member-mapper.xml"/>
 				       <!-- resources폴더  -->
+				<mapper resource="/mappers/myPage-mapper.xml"/>
+				       
 				</mappers>
 
 
