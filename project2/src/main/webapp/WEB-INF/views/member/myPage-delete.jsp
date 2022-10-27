@@ -16,7 +16,7 @@
 <body>
     <main>
         <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-        
+
         <section class="myPage-content">
 
             <jsp:include page="/WEB-INF/views/member/sideMenu.jsp"/> <%-- 사이드 메뉴 --%>
@@ -24,29 +24,58 @@
 
             <section class="myPage-main"> 
 
-                <h1 class="myPage-title">비밀번호 변경</h1>
+                <h1 class="myPage-title">회원 탈퇴</h1>
                 <span class="myPage-subject">
-                    현재 비밀번호가 일치하는 경우 새 비밀번호로 변경할 수 있습니다.    
+                    현재 비밀번호가 일치하는 경우 탈퇴할 수 있습니다.    
                 </span>
 
-                <form action="changePw" method="post" name="myPage-frm">
+                <form action="delete" method="post" name="myPage-frm">
 
                     <div class="myPage-row">
-                        <label>현재 비밀번호</label>
-                        <input type="password" name="currentPw" maxlength="20">
+                        <label>비밀번호</label>
+                        <input type="password" name="memberPw" maxlength="20">
                     </div>
 
-                    <div class="myPage-row">
-                        <label>새 비밀번호</label>
-                        <input type="password" name="newPw" maxlength="20">
+                    <div class="myPage-row info-title">
+                        <label>회원 탈퇴 약관</label>
                     </div>
 
-                    <div class="myPage-row">
-                        <label>새 비밀번호 확인</label>
-                        <input type="password" name="newPwConfirm" maxlength="20">
+                    <pre class="secession-terms">
+제1조
+이 약관은 샘플입니다.
+
+① 약관 내용 1
+
+② 약관 내용 2
+
+③ 약관 내용 3
+
+④ 약관 내용 4
+
+⑤ 약관 내용 5
+
+
+제2조
+이 약관은 샘플입니다.
+
+① 약관 내용 1
+
+② 약관 내용 2
+
+③ 약관 내용 3
+
+④ 약관 내용 4
+
+⑤ 약관 내용 5
+                    </pre>
+
+                    <div>
+                        <input type="checkbox" name="agree" id="agree">
+                        <label for="agree">위 약관에 동의합니다.</label>
+                        
                     </div>
 
-                    <button class="myPage-submit">수정하기</button>
+                    <button class="myPage-submit">탈퇴하기</button>
 
                 </form>
             </section>

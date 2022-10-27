@@ -31,7 +31,7 @@ public class MemberServiceImpl implements MemberService {
 //		System.out.println("입력한 비밀번호 : " +inputMember.getMemberPw());
 //		
 //		System.out.println("암호화 비밀번호 : " + bcrypt.encode(
-//											inputMember.getMemberPw()));
+//											inputM21mber.getMemberPw()));
 
 		// bcrypt 이용시 로그인 방법
 		// 1. 이메일이 일치하는 회원 정보를 DB에서 조회

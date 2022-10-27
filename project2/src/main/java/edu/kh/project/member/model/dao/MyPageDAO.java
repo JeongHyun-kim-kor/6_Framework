@@ -1,5 +1,7 @@
 package edu.kh.project.member.model.dao;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,4 +23,28 @@ public class MyPageDAO {
         
         return sqlSession.update("myPageMapper.updateInfo", inputMember);
     }
+
+    /** 암호호된 비밀번호 조회 DAO
+     * @param memberNo
+     * @return encPw 
+     */
+    public String selectEncPw(int memberNo) {
+
+        return sqlSession.selectOne("myPageMapper.selectEncPw", memberNo);
+    }
+
+    /** 비밀번호 변경 DAO
+     * @param paramMap
+     * @return result
+     */
+    public int changePw(Map<String, Object> paramMap) {
+        
+        return sqlSession.update("myPageMapper.changePw", paramMap);
+    }
+
+    public int memberDelete(int memberNo) {
+        return sqlSession.update("myPageMapper.memberDelete", memberNo);
+    }
+    
+    
 }
