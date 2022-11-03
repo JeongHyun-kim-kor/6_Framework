@@ -29,21 +29,21 @@
                     현재 비밀번호가 일치하는 경우 새 비밀번호로 변경할 수 있습니다.    
                 </span>
 
-                <form action="changePw" method="post" name="myPage-frm">
+                <form action="changePw" method="post" name="myPage-frm" id="changePwForm">
 
                     <div class="myPage-row">
                         <label>현재 비밀번호</label>
-                        <input type="password" name="currentPw" maxlength="20">
+                        <input type="password" name="currentPw" maxlength="20" id="currentPw">
                     </div>
 
                     <div class="myPage-row">
                         <label>새 비밀번호</label>
-                        <input type="password" name="newPw" maxlength="20">
+                        <input type="password" name="newPw" maxlength="20" id="newPw">
                     </div>
 
                     <div class="myPage-row">
                         <label>새 비밀번호 확인</label>
-                        <input type="password" name="newPwConfirm" maxlength="20">
+                        <input type="password" name="newPwConfirm" maxlength="20" id="newPwConfirm">
                     </div>
 
                     <button class="myPage-submit">수정하기</button>
@@ -60,7 +60,7 @@
         <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
     <!-- 다음 주소 api 추가 -->
-
+    <script src="/resources/js/member/myPage.js"></script>
 
 </body>
 </html>

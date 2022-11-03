@@ -46,9 +46,24 @@
 
             <%-- 로그인 X인 경우 --%>
                 <c:when test="${empty sessionScope.loginMember}">
-                               <%-- 절대 경로 --%>
-                    <form action="/member/login" name="login-frm" method="POST">
-                        
+                            <%-- 절대 경로 --%>
+                    <form action="/member/login" name="login-frm" method="POST"
+                        onsubmit="return loginValidate();">
+                                    <%--  false or true  --%>
+                        <%-- 
+                            form태그의 submit 이벤트를 취소시키는 방법
+
+                            -> 인라인 이벤트 모델의 결과로 false를 리턴하면 
+                                제출 이벤트가 취소된다.
+
+
+                        --%>    
+
+
+
+
+
+
                         <!-- 아이디, 비밀번호, 로그인 버튼 -->
                         <fieldset id="id-pw-area">
                             <section>
@@ -79,8 +94,8 @@
             
                         <!-- label 태그 내부에 input태그를 작성하면 자동으로 서로 연결됨 / for랑 name이랑 일치시키지 않아도됨 -->
                         <label>
-                            <input type="checkbox" name="saveId" ${temp} > 아이디 저장
-                                                                 <%--null or 쿠키?  --%>               
+                            <input type="checkbox" id="saveId" name="saveId" ${temp} > 아이디 저장
+                                                                <%--null or 쿠키?  --%>               
                         </label>
             
                         <!-- 회원가입/ Id/pw찾기 -->
@@ -108,10 +123,10 @@
                     
                         <%-- 회원 정보 + 로그아웃 버튼 --%>
                         <div class="my-info">
-                        	<div>
-	                            <a href="/member/myPage/info" id="nickname">${loginMember.memberNickname}</a>
-	                            
-	                            <a href="/member/logout" id="logout-btn">로그아웃
+                            <div>
+                                <a href="/member/myPage/info" id="nickname">${loginMember.memberNickname}</a>
+                                
+                                <a href="/member/logout" id="logout-btn">로그아웃
 
 
                                 </a>
@@ -132,19 +147,18 @@
 
 
                             
-        m    
 
 
 
 
             </section>
         </section>
-
-     </main>
+        </main>
 
     <%-- footer.jsp 포함 --%>
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-     
+    
+    <script src="/resources/js/main.js"></script>
 
 </body>
 </html>
