@@ -33,13 +33,14 @@
 
                 <!-- 이메일 입력 영역 -->
                 <div class="signUp-input-area">
-                    <input type="text" name="memberEmail" id="memberEmail" placeholder="아이디(이메일)"
-                        maxlength="20" autocomplete="off" required
+                    <input type="text" name="memberEmail" id="memberEmail" 
+                        placeholder="아이디(이메일)"
+                        maxlength="50" autocomplete="off" required
                         value="${tempMember.memberEmail}">
 
                     <button type="button">인증번호 받기</button>
                 </div>
-                <span class="signIp-message">메일을 받을 수 있을 수 있는 이메일을 입력해주세요.</span>
+                <span class="signIp-message" id="emailMessage">메일을 받을 수 있을 수 있는 이메일을 입력해주세요.</span>
 
 
                 <!-- 인증번호 입력-->
@@ -68,7 +69,7 @@
                     maxlength="20"  required>
 
                 </div>
-                <span class="signIp-message error">비밀번호가 일치하지 않습니다.</span>
+                <span class="signIp-message" id="pwMessage">영어, 숫자, 특수문자(!,@,#,-,_) 6~20글자 사이로 입력해주세요</span>
 
 
                 <!-- 닉네임 입력-->
@@ -80,7 +81,7 @@
                     maxlength="10"  required value="${tempMember.memberEmail}">
                 </div>
                
-                <span class="signIp-message confirm">사용 가능한 닉네임 입니다.</span>
+                <span class="signIp-message" id="nickMessage">한글,영어, 숫자로만 2~10글자</span>
 
 
 
@@ -89,11 +90,12 @@
                     <span class="required">*</span> 전화번호
                 </label>
                  <div class="signUp-input-area">
-                    <input type="text" name="memberTel" id="memberTel" placeholder="(-없이 숫자만 입력)"
+                    <input type="text" name="memberTel" id="memberTel"
+                     placeholder="(-없이 숫자만 입력)"
                     maxlength="11"  required value="${tempMember.memberTel}">
                 </div>
                
-                <span class="signIp-message error">전화번호 형식이 올바르지 않습니다.</span>
+                <span class="signIp-message" id="telMessage">전화번호를 입력해주세요(- 제외)</span>
 
 
 
@@ -171,6 +173,7 @@
     }
 </script>
 
+<script src="/resources/js/member/signUp.js"></script>
 
 </body>
 </html>
