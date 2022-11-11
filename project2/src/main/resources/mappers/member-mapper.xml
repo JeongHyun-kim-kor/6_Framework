@@ -18,7 +18,7 @@
   		
   		- 속성
   			type  : 연결할 VO객체의 타입(패키지 + 클래스명 or 별칭)
-  																											(별칭 : mabatis-config.xml에서 지정)
+  												(별칭 : mabatis-config.xml에서 지정)
 				id = resultMap을 식별할 이름  
   -->
 <!--	<resultMap type="edu.kh.project.member.model.vo.Member" id="member_rm"> -->
