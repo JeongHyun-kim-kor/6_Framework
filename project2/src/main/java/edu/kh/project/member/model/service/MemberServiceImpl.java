@@ -89,10 +89,17 @@ public class MemberServiceImpl implements MemberService {
 	    
 	    inputMember.setMemberPw(encPw);
 	    
-	   // DAO 호출 후 결과 반환 받기
-	    int result = dao.signUp(inputMember);
+	   // DAO 호출 후 결과 반환 받기 
+	    int result = dao.signUp(inputMember);   // 0 또는 1
+	    
+	   
 	    
 	    return result;
 	}
+	
+	
+	
+	
+	
 
 }

@@ -171,13 +171,43 @@ function memberDeleteValidate(){
 
 //-------------------------------------------------------------------------------------------
 
-
+// 프로필 수정
 const profileImage = document.getElementById("profile-image");
 const deleteImage = document.getElementById("delete-image");
 const imageInput = document.getElementById("image-input");
 
+//1114 6교시
+
+// 초기 프로필 이미지 상태를 저장하는 변수
+// (true : 업로드된 이미지 있음, false : 기본 이미지 상태)
+let initCheck;  
+
+
+
+// 이미지가 업로드 되었거나 삭제도었음을 나타내는 변수
+// (-1 : 초기값, 0 : 프로필 삭제(x버튼) , 새이미지 업로드 : 1)
+let deleteCheck;
+
+deleteCheck = -1;
+
+
+
+
+
+// 프로필 수정 페이지에 처음 들어왔을 때 설정되어있는 이미지의 경로
+const originalImage = profileImage.getAttribute("src");
+
 // 프로필 수정 화면일 경우
 if(imageInput != null){
+
+    // 해당 화면 진입 시 프로필 이미지 상태를 저장(initCheck)
+    if(profileImage.getAttribute("src") == "/resources/images/user.png") {
+        // 기본이미지인 경우
+        initCheck = false;
+    } else {
+        initCheck = true;
+    }
+
 
     // 이미지가 선택되었을 때 미리보기
 
@@ -195,28 +225,77 @@ if(imageInput != null){
         console.log(e.target.files)
         console.log(e.target.files[0]);
 
-        const reader = new FileReader();
-        // FileReader (파일 읽는 객체)
-        // - 웹 애플리케이션이  비동기적으로 데이터를 읽기 위하여
-        //   읽을 파일을 가리키는 FIle 객체
+        // 선택된 파일이 있을 경우
+        if(e.target.files[0] != undefined){
 
-        // - 읽어들인 파일을 사용자 컴퓨터에 저장할 수 있다.
-        
-        reader.readAsDataURL(e.target.files[0]);
-        // FileReader.readAsDataURL("파일 정보")
-        // -> 지정된 파일을 읽기 시작함
+            const reader = new FileReader();
+            // FileReader (파일 읽는 객체)
+            // - 웹 애플리케이션이  비동기적으로 데이터를 읽기 위하여
+            //   읽을 파일을 가리키는 FIle 객체
 
-        // FileReader.onload : 파일 읽기가 완료되었을 때의 동작을 지정
-        reader.onload = event => {
-         
-            // console.log(event.target);
-            // event.target.result : 읽어진 파일의 결과(실제 이미지 파일)의 경로
-            event.target.result;
+            // - 읽어들인 파일을 사용자 컴퓨터에 저장할 수 있다.
+            
+            reader.readAsDataURL(e.target.files[0]);
+            // FileReader.readAsDataURL("파일 정보")
+            // -> 지정된 파일을 읽기 시작함
 
-            // img 태그의 src 속성으로 읽은 이미지 파일 경로 추가
-            // == 이미지 미리보기
-            profileImage.setAttribute("src", event.target.result);
+            // FileReader.onload : 파일 읽기가 완료되었을 때의 동작을 지정
+            reader.onload = event => {
+            
+                // console.log(event.target);
+                // event.target.result : 읽어진 파일의 결과(실제 이미지 파일)의 경로
+                event.target.result;
+
+                // img 태그의 src 속성으로 읽은 이미지 파일 경로 추가
+                //. == 이미지 미리보기
+                profileImage.setAttribute("src", event.target.result);
+
+                deleteCheck = 1;
+            }
+
+        }// if문 괄호
+        else{ // 취소가 눌러진 경우
+            profileImage.setAttribute("src", originalImage)
+
+           
         }
+
     });
+
+    // x버튼이 클릭됐을 경우 -> 기본이미지로 변경
+
+    deleteImage.addEventListener("click", () => {
+        profileImage.setAttribute("src", "/resources/images/user.png")
+        imageInput.value = '';
+        deleteCheck = 0;
+    });
+
     
+}
+
+
+function profileValidate(){
+
+    // 이미지가 없었따가 -> 생기면
+    if(!initCheck && deleteCheck == 1 ){ 
+
+        return true;
+    }
+    // 이미지 있음- > x버튼 눌러서 없어짐 
+    if(initCheck && deleteCheck == 0){ 
+
+        return true;
+    }
+
+     // 이미지 있음- > 새로운 이미지로 바꿔서 -> '있음'
+     if(initCheck&& deleteCheck == 1){
+
+
+        return true;
+    }
+
+
+    alert("이미지 변경 후 클릭하세요")
+    return false;
+
 }

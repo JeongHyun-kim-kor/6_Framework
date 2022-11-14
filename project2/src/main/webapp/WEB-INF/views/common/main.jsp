@@ -167,7 +167,14 @@
                         
                         <%-- 회원 프로필 이미지 --%>
                         <a href="/member/myPage/profile">
-                            <img id="member-profile" src="/resources/images/user.png">    
+
+                            <c:if test="${empty loginMember.profileImage}">
+                            <img id="member-profile" src="/resources/images/user.png" alt="">
+                            </c:if>
+
+                            <c:if test="${!empty loginMember.profileImage}">
+                            <img id="member-profile" src="${loginMember.profileImage}" alt="">
+                            </c:if>
                         </a>
                     
                         <%-- 회원 정보 + 로그아웃 버튼 --%>
