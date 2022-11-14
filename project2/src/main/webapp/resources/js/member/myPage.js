@@ -168,3 +168,55 @@ function memberDeleteValidate(){
     // 
     return true;
 }
+
+//-------------------------------------------------------------------------------------------
+
+
+const profileImage = document.getElementById("profile-image");
+const deleteImage = document.getElementById("delete-image");
+const imageInput = document.getElementById("image-input");
+
+// 프로필 수정 화면일 경우
+if(imageInput != null){
+
+    // 이미지가 선택되었을 때 미리보기
+
+    // * input type = "file" 요소는 값이 없을 때 '' (빈칸)
+    // * input type = "file" 요소는 이전에 선택한 파일이 있어도 취소하면 다시 ''(빈칸)
+    // * input type = "file" 요소는 파일을 선택하면 change 이벤트가 발생한다.
+
+    imageInput.addEventListener("change", e => {
+
+        // e : 이벤트 객체
+        // e.target : 이벤트가 발생한 요소(== imageInput)
+        // * 화살표 함수에서 this는 window객체를 의미한다!
+
+        // 선택된 파일의 목록 -> 항상 1개를 업로드하기때문에 0번 인덱스에 존재
+        console.log(e.target.files)
+        console.log(e.target.files[0]);
+
+        const reader = new FileReader();
+        // FileReader (파일 읽는 객체)
+        // - 웹 애플리케이션이  비동기적으로 데이터를 읽기 위하여
+        //   읽을 파일을 가리키는 FIle 객체
+
+        // - 읽어들인 파일을 사용자 컴퓨터에 저장할 수 있다.
+        
+        reader.readAsDataURL(e.target.files[0]);
+        // FileReader.readAsDataURL("파일 정보")
+        // -> 지정된 파일을 읽기 시작함
+
+        // FileReader.onload : 파일 읽기가 완료되었을 때의 동작을 지정
+        reader.onload = event => {
+         
+            // console.log(event.target);
+            // event.target.result : 읽어진 파일의 결과(실제 이미지 파일)의 경로
+            event.target.result;
+
+            // img 태그의 src 속성으로 읽은 이미지 파일 경로 추가
+            // == 이미지 미리보기
+            profileImage.setAttribute("src", event.target.result);
+        }
+    });
+    
+}
