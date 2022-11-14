@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,27 +10,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>마이페이지</title>
 
-    <link rel="stylesheet" href="../resources/css/main-style.css">
-    <link rel="stylesheet" href="../resources/css/myPage-style.css">
+    <link rel="stylesheet" href="/resources/css/main-style.css">
+    <link rel="stylesheet" href="/resources/css/myPage-style.css">
+
+
+ <!--  fontawesome 사이트 아이콘 이용   -->
+    <script src="https://kit.fontawesome.com/f7459b8054.js" crossorigin="anonymous"></script>
 
 </head>
 <body>
     <main>
-        header.jsp include
+
+        <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
         <section class="myPage-content">
 
-            <section class="left-side">
-                사이드 메뉴
-                <ul class="list-group">
-                    <li><a href="/member/myPage/profile">프로필</a></li>
-                    <li><a href="/member/myPage/info">내 정보</a></li>
-                    <li><a href="/member/myPage/changePw">비밀번호 변경</a></li>
-                    <li><a href="/member/myPage/delete">회원 탈퇴</a></li>
-                    
-                </ul>
+            <jsp:include page="/WEB-INF/views/member/sideMenu.jsp"/>
 
-            </section>
 
             <section class="myPage-main"> 
 
@@ -38,7 +38,7 @@
                 <form action="#" method="post" name="myPage-frm">
 
                     <div class="profile-image-area">
-                        <img id="profile-image" src="../resources/images/user.png" alt="">
+                        <img id="profile-image" src="/resources/images/user.png" alt="">
                     </div>
                     <span id="delete-image">&times;</span>
 
@@ -72,7 +72,9 @@
 
 
     </main>
-    footer.jsp include
+
+    
+    <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
     <!-- 다음 주소 api 추가 -->
 

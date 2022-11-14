@@ -200,8 +200,20 @@ public class MyPageController {
                  return "redirect:" + path;
              }
              
+             // 11/14 1교시
+             // 프로필 화면으로 이동
+           
+           //클래스 레벨에 작성된 @RequestMapping
+          // -> 요청주소 중 앞에 공통된 부분을 작성하여
+          // 해당 유형의 요청을 모두 받아들인다고 알림
+                //@RequestMapping("/member/myPage")
              
-             
+             @GetMapping("/profile")
+             // 원래는 /member/myPage/profile 임
+             public String profile() {
+                 
+                 return "member/myPage-profile";
+             }
              
              
              
