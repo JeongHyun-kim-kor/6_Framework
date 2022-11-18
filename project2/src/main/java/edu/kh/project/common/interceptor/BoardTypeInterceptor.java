@@ -1,12 +1,18 @@
 package edu.kh.project.common.interceptor;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import edu.kh.project.board.model.service.BoardService;
 
 // 인터셉터
 
@@ -22,6 +28,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 public class BoardTypeInterceptor implements HandlerInterceptor {
 
+    @Autowired
+    private BoardService service;
+    
     // preHandle(전처리) : 컨트롤러 호출 전에 수행
     
     
@@ -47,7 +56,12 @@ public class BoardTypeInterceptor implements HandlerInterceptor {
         if(application.getAttribute("boardTypeList") == null) {
             
             // boardTypeList 조회하는 Service를 호출
+                // DB에 boardType  1, 공지사항, 2자유게시판, 3.질문, 4테스트게시판
+                //  BOARD_CODE, BOARD_NAME  > Map이 저장된 List로 담아오기
+            List<Map<String, Object>> boardTypeList = service.selectBoardType();
             
+            // application scope에 세팅
+            application.setAttribute("boardTypeList", boardTypeList);
         }
         
         

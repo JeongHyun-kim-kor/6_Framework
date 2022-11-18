@@ -76,22 +76,15 @@
 
         <nav>
             <ul>
-                <%-- <li><a href="#">공지사항</a></li>
-                <li><a href="#">자유 게시판</a></li>
-                <li><a href="#">질문 게시판</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">1:1 문의</a></li> --%>
 
-                <c:forEach var="boardType" items="${boardTypeMap}">
-                <%--
-                     EL을 이용해서 Map 데이터를 다루는 방법
-                     key를 얻어오고 싶으면 ${변수명.key}
-                    value               >> ${변수명.value}
+            <c:forEach var="boardType" items="${boardTypeList}">
+                <li>
+                    <a href="/board/${boardType.BOARD_CODE}">${boardType.BOARD_NAME}</a>
+                </li>                                                                   
 
-                 --%>
-                <li>  <a href="/board/${boardType.key}/list">${boardType.value}   </a></li>
+            </c:forEach>
 
-                </c:forEach>
+
 
     
             </ul>
