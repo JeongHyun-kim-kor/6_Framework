@@ -67,6 +67,16 @@ public class BoardDAO {
                                                                // 파라미터가 없을 경우 null 대입
     }
 
+    /**     // 게시글 상세 조회 + 이미지 목록 조회 + 댓글 목록 조회
+
+     * @param boardNo
+     * @return return
+     */
+    public Board selectboardDetail(int boardNo) {
+        // TODO Auto-generated method stub
+        return sqlSession.selectOne("boardMapper.selectBoardDetail", boardNo);
+    }
+
     
     
     
