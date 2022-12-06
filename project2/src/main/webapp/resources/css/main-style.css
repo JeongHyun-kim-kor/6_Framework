@@ -522,6 +522,6 @@ label[for='header-menu-toggle']:hover{
 }
 
 .secession > td:first-of-type{
- text-decoration: line-through;
- color: red;
+    text-decoration: line-through;
+    color: red;
 }

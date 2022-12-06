@@ -21,7 +21,7 @@ public class MemberDAO {
 //		sqlSession.selectOne("mapper이름.태그id", SQL작성시 필요한 값들);
 		return sqlSession.selectOne("memberMapper.login", memberEmail);
 	}
-
+	
     /** 회원 가입 DAO
      * @param inputMember
      * @return result

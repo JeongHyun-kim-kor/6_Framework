@@ -23,6 +23,7 @@ public class Board {
     private int memberNo;
     private String profileImage;
     private String thumbnail;
+    private int boardCode;
     
 //    // 이미지 목록 리스트한개
         private List<BoardImage> imageList;    

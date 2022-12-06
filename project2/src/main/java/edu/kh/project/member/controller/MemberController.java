@@ -244,10 +244,10 @@ public class MemberController {
 		
 		
 		
-		return "redirect:" + path;
+		return "redirect:/";
 	}
 	// 1026 3교시
-	// 로그인 페이지 이동
+	// 로그인 페이지 이동  // header.jsp의 로그인버튼
 	@GetMapping("/member/login")
 	public String loginPage() {
 	    return "member/login";

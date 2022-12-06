@@ -47,3 +47,50 @@
     
 
 })();
+
+// 글쓰기 버튼
+(()=>{
+    const insertBtn = document.getElementById("insertBtn");
+
+    if(insertBtn != null){ // 버튼이 존재할 때만
+        insertBtn.addEventListener("click", () => {
+            location.href = "/write/" + boardCode; /* boardList.jsp에서 선언한 전역변수 boardCode */
+            
+        })
+
+    }
+})();
+
+
+// 11.25 3교시
+
+// 검색을 한 경우 검색창에 검색한 key와 query 남겨놓기
+(()=>{
+    const select = document.getElementById("search-key");
+    const input = document.getElementById("search-query");
+    const option = document.querySelector("#search-key > option")
+
+    if(select != null){ // 검색창이 존재할 때
+        const params = new URL(location.href).searchParams;
+        // 주소에서 쿼리스트링만 분리한 객체
+
+        const key = params.get("key");
+        const query = params.get("query");
+
+        // input 이전 검색어를 값으로 추가
+        input.value = query;
+
+        // select에서 이전 검색한 key의 값과 일치하는 option태그에 
+        // selected 속성 추가
+        for(let op of option){
+            // option의 value와 key가 일치할 때
+            if(op.value == key){
+                //op.setAttribute("selected", true)
+                op.selected = true;
+
+            }
+        }
+
+
+    }
+})();

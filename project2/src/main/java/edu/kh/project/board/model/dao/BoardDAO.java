@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.project.board.model.vo.Board;
+import edu.kh.project.board.model.vo.BoardImage;
 import edu.kh.project.board.model.vo.Pagination;
 
 @Repository
@@ -77,8 +78,146 @@ public class BoardDAO {
         return sqlSession.selectOne("boardMapper.selectBoardDetail", boardNo);
     }
 
+    /** 조회 수 증가
+     * @param boardNo
+     * @return result
+     */
+    public int updateReadCount(int boardNo) {
+        // TODO Auto-generated method stub
+        return sqlSession.update("boardMapper.updateReadCount", boardNo);
+    }
+
+    /** 좋아요 여부 체크
+     * @param map
+     * @return
+     */
+    public int boardLikeCheck(Map<String, Object> map) {
+        // TODO Auto-generated method stub
+        return sqlSession.selectOne("boardMapper.boardLikeCheck", map);
+    }
+
+    /** 좋아요 수 증가(INSERT)
+     * @param paramMap
+     * @return
+     */
+    public int boardLikeUp(Map<String, Object> paramMap) {
+        // TODO Auto-generated method stub
+        return sqlSession.insert("boardMapper.boardLikeUp", paramMap);
+    }
+
+    /** 좋아요 수 감소(DELETE)
+     * @param paramMap
+     * @return
+     */
+    public int boardLikeDown(Map<String, Object> paramMap) {
+        return sqlSession.delete("boardMapper.boardLikeDown", paramMap);
+    }
     
     
+    public String boardDeleteSuccess(String boardNo) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /** 게시글 삭제
+     * @param boardNo
+     * @return
+     */
+    public int boardDelete(int boardNo) {
+        // TODO Auto-generated method stub
+        return sqlSession.update("boardMapper.boardDelete",boardNo);
+
+    }
+
+    /** 게시글 삽입
+     * @param board
+     * @return boardNo
+     */
+    public int boardWrite(Board board) {
+                                // 4개매개변수가 담겨있다.
+        
+        int result = sqlSession.insert("boardMapper.boardWrite", board);
+        // board의 boardNo 필드
+        // -> <selectKey>로 인해서 생성된 시퀀스 값이 세팅되어있음.
+        // 
+        
+        // 메인 쿼리(INSERT) 성공시
+        if(result > 0) result = board.getBoardNo();
+        
+        return result; // 0또는 삽입된 게시글 번호 
+    }
+
+    /** 게시글 첨부 이미지 삽입(리스트 형식)
+     * @param boardImageList
+     * @return result(INSERT된 행의 개수)
+     */ 
+    public int insertBoardImageList(List<BoardImage> boardImageList) {
+        
+        
+        return sqlSession.insert("boardMapper.insertBoardImageList", boardImageList);
+    }
+
+    /** 게시글 수정
+     * @param board
+     * @return result
+     */
+    public int boardUpdate(Board board) {
+
+        return sqlSession.update("boardMapper.boardUpdate", board);
+    }
+
+    /** 게시글 이미지 삭제
+     * @param condition
+     * @return result
+     */
+    public int BoardImageDelete(String condition) {
+
+        return sqlSession.delete("boardMapper.boardImageDelete", condition);
+    }
+
+    /** 이미지 수정
+     * @param img
+     * @return result
+     */
+    public int boardImageUpdate(BoardImage img) {
+            
+        return sqlSession.update("boardMapper.boardImageUpdate", img);
+    }
+
+    /** 이미지 삽입
+     * @param img
+     * @return result
+     */
+    public int boardImageInsert(BoardImage img) {
+        return sqlSession.insert("boardMapper.boardImageInsert", img);
+    }
+
+    /** 검색 조건이 일치하는 게시글 수 조회
+     * @param pm
+     * @return listCount
+     */
+    public int getListCount(Map<String, Object> pm) {
+
+        return sqlSession.selectOne("boardMapper.getListCount_search", pm);
+    }
+
+    /** 검색 조건 일치 게시글 목록 조회
+     * @param pagination
+     * @param pm
+     * @return boardList
+     */
+    public List<Board> selectBoardList(Pagination pagination, Map<String, Object> pm) {
+
+        int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+        RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+        
+        return sqlSession.selectList("boardMapper.selectBoardList_search", pm, rowBounds);
+    }
+
+    
+   public List<String> selectImageList(){
+       return sqlSession.selectList("boardMapper.selectImageList2");
+   }
     
     
     
