@@ -85,19 +85,6 @@
 	<!-- AOP관련 어노테이션 인식 -->
 	<aop:aspectj-autoproxy/>
 	
-	   <beans:bean id="chatHandler" class="edu.kh.project.chatting.model.websocket.ChattingWebsocketHandler"/>
-   <websocket:handlers>
-      <!-- websocket 매핑 주소 -->
-      <websocket:mapping handler="chatHandler" path="/chattingSock"/>
-      
-      <websocket:handshake-interceptors> 
-         <!-- interceptor : http통신에서 request, response를 가로채는 역할
-         handshake-interceptors :Httpsession에 있는 값을 가로채서 WebSocketSession 넣어주는 역할  -->
-         <beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
-      </websocket:handshake-interceptors>
-      
-      <websocket:sockjs/>
-   </websocket:handlers> 
-	
+	  
 	
 </beans:beans>

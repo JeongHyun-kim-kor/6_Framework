@@ -1,6 +1,0 @@
-<!-- 회원 가입 / add테이블에 넣어보자 -->
-	<insert id="signUp2" parameterType = "Add">
-		INSERT INTO "ADD"
-		VALUES(#{memberTel}, #{memberAddress}, #{memberNo}, #{marriageFlag}  )  >> XXX
-		VALUES(#{memberTel}, #{memberAddress}, #{memberNo}, #{marriageFlag} , #{memberWedding} )
-	</insert>
