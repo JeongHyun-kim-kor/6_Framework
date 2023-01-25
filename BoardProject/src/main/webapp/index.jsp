@@ -9,5 +9,11 @@
 <body>
 
 하이
+
+<!-- 로그인페이지로 이동하는 스크립트 코드  -->
+<script type="text/javascript">
+
+	location.href="login.jsp"
+</script>
 </body>
 </html>
