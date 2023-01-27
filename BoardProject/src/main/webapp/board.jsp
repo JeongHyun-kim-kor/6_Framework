@@ -14,9 +14,14 @@
 <title>JSP 게시판 웹 사이트</title>
 </head>
 <body>
-    <%-- <div style="width:200px; height:200px;" class="btn-success">
-    하이하이
-    </div> --%>
+    <%
+        // 메인페이지로 이동시 세션에 값이 담겨있는지 확인하는 코드
+        String userId = null;
+        if(session.getAttribute("userId") != null){
+            userId = (String)session.getAttribute("userId");
+        }
+    %>
+
    <!-- 네비게이션 영역-->
    <nav class="navbar navbar-default">
         <div class="navbar-header">
@@ -34,11 +39,18 @@
     
         <div class ="collapse navbar-collapse" id="bs-example.navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="main.jsp">메인</a></li>
-                <li><a href="board.jsp">게시판</a></li>
+                <li ><a href="main.jsp">메인</a></li>
+                <li class="active"><a href="board.jsp">게시판</a></li>
             </ul>
 
-            <ul class="nav navbar-nav navbar-right">
+            <%-- 로그인하지 않았을 때 보여지는 화면  --%>
+            <%
+                if(userId == null){
+
+                
+            %>
+            <%-- 헤더 우측에 나타나는 드랍다운 영역 --%>
+             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle"
                         data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -46,16 +58,66 @@
 
                         <!-- 드랍다운 아이템 영역 -->
                         <ul class="dropdown-menu">
-                            <li class="active"><a href="login.jsp">로그인</a></li>
+                            <li><a href="login.jsp">로그인</a></li>
                             <li><a href="join.jsp">회원가입</a></li>
                         
                         </ul>
                 </li>
             </ul>
-        </div>
-   </nav>\
 
-   <div class="container">
+            <%
+            // 로그인이 되어있다면
+                    }else{
+            %>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle"
+                        data-toggle="dropdown" role="button" aria-haspopup="true"
+                        aria-expanded="false">회원관리<span class="caret"></span>
+
+                        <!-- 드랍다운 아이템 영역 -->
+                        <ul class="dropdown-menu">
+                            <li><a href="logoutAction.jsp">로그아웃</a></li>
+                        
+                        </ul>
+                </li>
+            </ul>
+
+            <%
+                    }
+            %>
+         
+        </div>
+   </nav>
+
+    <%-- 게시판 메인 페이지 영역  --%>
+    <div class="container">
+        <div class="row">
+            <table class="table table-striped" style="text-align: center; border : 1px solid #dddddd">
+                <thead>
+                    <tr>
+                        <th style="background-color: #eeeeee; text-align : center;">번호</th>
+                        <th style="background-color: #eeeeee; text-align : center;">제목</th>
+                        <th style="background-color: #eeeeee; text-align : center;">작성자</th>
+                        <th style="background-color: #eeeeee; text-align : center;">작성일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>안녕</td>
+                        <td>홍길동</td>
+                        <td>2023-01-27</td>
+                    </tr>
+                </tbody>
+            </table>
+            <%-- 글쓰기 버튼 --%>
+            <a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
+        </div>
+    </div>
+     <%-- 게시판 메인 페이지 영역 끝  --%>
+
+   <%-- <div class="container">
         <div class="col-lg-4">
 
             <div class="jumbotron" style="padding-top:20px;">
@@ -72,7 +134,7 @@
             </div>
 
         </div>
-   </div>
+   </div> --%>
 
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

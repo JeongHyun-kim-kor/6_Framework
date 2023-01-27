@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import user.model.vo.User;
+
 public class UserDAO {
 
 	private Connection conn;     // 자바와 DB연결
@@ -20,8 +22,10 @@ public class UserDAO {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			System.out.println("오라클 드라이버 로딩 ");
 			
-			Connection conn = DriverManager.getConnection(db_URL, db_Id, db_Pw);
+			conn = DriverManager.getConnection(db_URL, db_Id, db_Pw);
+			
 			System.out.println("DB접속성공 ");
+//			Connection conn = DriverManager.getConnection(db_URL, db_Id, db_Pw);
 
 			
 		}catch (Exception e) {
@@ -32,7 +36,7 @@ public class UserDAO {
 
 // 로그인 영역
 	public int login(String userId, String userPassword) {
-		String sql = "SELECT USER_PW FROM USER WHERE USER_ID = ?";
+		String sql = "SELECT USER_PW FROM MEMBER WHERE USER_ID = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			System.out.println(pstmt);
@@ -50,6 +54,22 @@ public class UserDAO {
 		}
 		return -2 ; // DB 에러
 		
+	} // login메서드 끝
+
+	public int join(User user) {
+		String sql = "INSERT INTO MEMBER VALUES(?, ?, ?, ? ,?)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user.getUserId());
+			pstmt.setString(2, user.getUserPassword());
+			pstmt.setString(3, user.getUserName());
+			pstmt.setString(4, user.getUserGender());
+			pstmt.setString(5, user.getUserEmail());
+			return pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 
-}
+} // DAO
