@@ -152,7 +152,41 @@ public class BoardDAO {
 	}
 	
 	
+	// 게시글 수정 메서드
+	public int update(int boardId, String boardTitle, String boardContent) {
+		String sql = "UPDATE BOARD SET BOARD_TITLE = ?, BOARD_CONTENT = ? WHERE BOARD_ID = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, boardTitle);
+			pstmt.setString(2, boardContent);
+			pstmt.setInt(3, boardId);
+			
+			return pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return -1; // DB 오류
+	}
 	
+	// 게시글 삭제 메서드  게시글 유효번호를 0으로 바꾼다(update)
+	public int delete(int boardId) {
+		String sql = "UPDATE BOARD SET BOARD_AVAILABLE = 0 WHERE BOARD_ID =?";
+		try {
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, boardId);
+		
+		return pstmt.executeUpdate();
+		
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return -1;
+	}
 	
 	
 	
