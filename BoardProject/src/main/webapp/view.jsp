@@ -28,7 +28,7 @@
             userId = (String)session.getAttribute("userId");
         }
    
-
+    // boardId 초기화 
     int boardId = 0;
     if(request.getParameter("boardId") != null){
         boardId = Integer.parseInt(request.getParameter("boardId"));
@@ -41,8 +41,8 @@
         script.println("location.href='board.jsp");
         script.println("</script>");
     }
-	// 유효한 글이라면 board라는 인스턴스에 담는다 -->
-    Board board = new BoardDAO().getBoard(boardId);
+        // 유효한 글이라면 board라는 인스턴스에 담는다 -->
+        Board board = new BoardDAO().getBoard(boardId);
     %>
     
    <!-- 네비게이션 영역-->
@@ -126,19 +126,19 @@
                     <tbody>
                         <tr>
                             <td style="width:20%;">글 제목</td>
-                            <td colspan="2"><% board.getBoardTitle(); %></td>
+                            <td colspan="2"><%= board.getBoardTitle() %></td>
                         </tr>
                         <tr>
                             <td>작성자</td>
-                            <td colspan="2"><% board.getUserId(); %></td>
+                            <td colspan="2"><%= board.getUserId() %></td>
                         </tr>
                         <tr>
                             <td>작성일자</td>
-                            <td colspan="2"><% board.getBoardDate(); %></td>
+                            <td colspan="2"><%= board.getBoardDate()%></td>
                         </tr>
                         <tr>
                             <td>내용 </td>
-                            <td colspan="2" style="height:200px; text-align: left;"><% board.getBoardContent(); %></td>
+                            <td colspan="2" style="height:200px; text-align: left;"><%= board.getBoardContent() %></td>
                         </tr>
                       
                     </tbody>
