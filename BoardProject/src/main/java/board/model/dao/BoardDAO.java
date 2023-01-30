@@ -88,7 +88,7 @@ public class BoardDAO {
 	
 //		String sql = "SELECT * FROM BOARD WHERE BOARD_ID < ? AND BOARD_AVAILABLE =1 ORDER BY BOARD_ID DESC LIMIT 10";
 //		String sql = "SELECT * FROM (SELECT * FROM BOARD ORDER BY BOARD_ID) WHERE ROWNUM = 1 AND BOARD_ID < ?";
-		String sql = "SELECT * FROM (SELECT * FROM BOARD ORDER BY BOARD_ID) WHERE ROWNUM < ? ORDER BY BOARD_ID DESC";
+		String sql = "SELECT * FROM (SELECT * FROM BOARD ORDER BY BOARD_ID) WHERE BOARD_AVAILABLE = 1 AND ROWNUM < ? ORDER BY BOARD_ID DESC";
 		ArrayList<Board> list = new ArrayList<Board>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
