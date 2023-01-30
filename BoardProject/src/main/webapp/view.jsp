@@ -161,7 +161,20 @@
                 	}
                 %>
                 
-              
+                <%-- 해당 글의 작성자가 본인이라면 수정과 삭제가 가능하도록 코드 추가 --%>
+                <%
+                    if(userId != null && userId.equals(board.getUserId())){
+
+
+                    
+                %>
+                    <a href="update.jsp?boardId=<%= boardID%>" class ="btn btn-primary">수정</a>
+                    <a onclick="return confirm('정말로 삭제하시겠습니까?')" href=
+                        "deleteAction.jsp?boardId=<%=boardId%>" class="btn btn-primary">삭제</a>
+
+                <%
+                    }
+                %>
             
         </div>
     
