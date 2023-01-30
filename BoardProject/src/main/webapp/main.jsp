@@ -88,23 +88,49 @@
             %>
          
         </div>
-   </nav>\
+   </nav>
 
+   <%-- 메인 페이지 영역시작 --%>
    <div class="container">
-        <div class="col-lg-4">
-
-            <div class="jumbotron" style="padding-top:20px;">
-                <form method="post" action="loginAction.jsp">
-                    <h3 style="text-align:center;">로그인 화면</h3>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="아이디" name="userId" maxlength="20">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="비밀번호" name="userPassword" maxlength="20">
-                    </div>
-                    <input type="submit" class="btn btn-primary form-control" value="로그인">
-                </form>
+        <div class="jumbotron">
+            <div class="container">
+                <h1>웹 사이트 소개</h1>
+                <p>
+                    이 웹사이트는 부트스트랩으로 만든 JSP 웹 사이트 입니다. 최소한의 간단한 로직만을 이용해서 개발했습니다.
+                    디자인 템플릿으로는 부트스트랩을 이용했습니다.
+                </p>
+                <a class="btn btn-primary btn-pull" href="#" role="button">자세히 알아보기</a>
             </div>
+        </div>
+   </div>
+   <%-- 메인 페이지 이미지 삽입 영역 --%>
+   <div class="container">
+        <div id = "myCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <li data-target="#myCarousel" data-slide-to="3"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="images/1.jpg" alt="">
+                </div>
+                <div class="item">
+                    <img src="images/2.jpg" alt="">
+                </div>
+                <div class="item">
+                    <img src="images/3.jpg" alt="">
+                </div>
+                <div class="item">
+                    <img src="images/4.jpg" alt="">
+                </div>
+            </div>
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
 
         </div>
    </div>
